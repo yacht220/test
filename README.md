@@ -24,3 +24,7 @@ Change in local repo again+.
 Change in master branch.
 
 Change in test-branch.
+
+Change in master branch again.
+
+Change in master branch again+.
