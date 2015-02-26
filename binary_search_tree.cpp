@@ -4,8 +4,6 @@
 
 #define ARRAY_SIZE 10
 
-//int gResult = 0;
-
 struct Node 
 {
   Node *left;
@@ -17,12 +15,10 @@ typedef Node* PNode;
 
 void insertBST(PNode* root, int value)
 {
-    //printf("%d\n", value);
     PNode* ptrNode = NULL;
-    //PNode ptrNodeTmp = NULL;
+
     if(NULL == *root)
     {
-        //printf("hello1\n");
         *root = (PNode)malloc(sizeof(Node));
         (*root)->left = NULL;
         (*root)->right = NULL;
@@ -33,8 +29,6 @@ void insertBST(PNode* root, int value)
         ptrNode = root;
         while(NULL != *ptrNode)
         {
-            //printf("hello2\n");
-            //ptrNodeTmp = ptrNode;
             if(value < (*ptrNode)->num)
             {
                 ptrNode = &(*ptrNode)->left;
@@ -52,26 +46,9 @@ void insertBST(PNode* root, int value)
     }   
 }
 
-
 void createBST(PNode *t)
 {        
-    /*char c = getchar();  
-    if(c == '#')  
-    {
-        *t = NULL;  
-    }
-    else
-    {  
-        *t = (PNode)malloc(sizeof(Node));  
-        printf("hello1\n");
-        createBST(&(*t)->left); 
-        printf("hello2\n");
-        (*t)->num = c;   
-        printf("hello3\n");
-        createBST(&(*t)->right);  
-        printf("hello4\n");
-    }*/
-
+    printf("Create binary search tree.\n");
     int array[ARRAY_SIZE] = {5,2,1,4,7,8,3,6,9,10};
     for(int i = 0; i < ARRAY_SIZE; i++)
     {
@@ -79,37 +56,51 @@ void createBST(PNode *t)
     }
 }  
 
-int findNthMax(Node *root, int &n)
+int findNthMaxImp(Node *root, int &n)
 {
     static int sResult = 0;
     if(root)
     {
-        findNthMax(root->right, n);  
-        printf("%d\n", root->num);
+        findNthMaxImp(root->right, n);  
+        printf("%d, ", root->num);
         n--;
         if(n == 0)      
         {
-            //printf("%dth max %d\n", nTmp, root->num);
             sResult = root->num;
         }
-        findNthMax(root->left, n);
+        findNthMaxImp(root->left, n);
     }
     return sResult;
 }
 
-int FindNthMaxNumber(Node *root, int N)
+int findNthMaxNumber(Node *root, int N)
 {
-    return findNthMax(root, N);
+    printf("Traverse BST with order right->parent->left.\n");
+    return findNthMaxImp(root, N);
 }
 
 
 int main(int argc, char **argv)
 {
+    if(argc < 2)
+    {
+        printf("usage: binary_search_tree.exe <nth_max_num_index>\n");
+        printf("       <nth_max_num_index> - 1...%d\n", ARRAY_SIZE);
+        return -1;
+    }
+    char* inputNthMaxIndexChar = argv[1];
+    int nthMax = atoi(inputNthMaxIndexChar);
     PNode root = NULL;
+    int result = 0;
+    
+    if(nthMax <=0 || nthMax > ARRAY_SIZE)
+    {
+        printf("Please input <nth_max_num_index> with range 1...%d.\n", ARRAY_SIZE);
+        return -1;
+    }
     createBST(&root);
-    int nthMax = 4;
-    int result = FindNthMaxNumber(root, nthMax);
-    printf("%dth max %d", nthMax, result);
+    result = findNthMaxNumber(root, nthMax);
+    printf("\n\nThe %dth max number = %d", nthMax, result);
     
     return 1;
 }
