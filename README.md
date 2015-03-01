@@ -36,3 +36,5 @@ Change in test-branch again.
 Change in test-branch again+.
 
 Change in test-branch+++++++++++++++++++
+
+Change in master branch+++++++++++.
