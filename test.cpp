@@ -88,6 +88,43 @@ B::~B()
 {
 }
 
+class Base
+{
+    public:
+        Base()
+        {
+            doSth();
+        }
+        
+        virtual ~Base()
+        {
+        }
+
+        virtual void doSth()
+        {
+            printf("Base.\n");
+        }
+
+        void doOther(Base& obj)
+        {
+            obj.doSth();
+        }
+};
+
+class Sub : public Base
+{
+    public:
+        virtual void doSth()
+        {
+            printf("Sub.\n");
+        }
+
+        void doMyThing()
+        {
+            doOther(*this);
+        }
+};
+
 
 
 int main(int argc, char **argv)
@@ -186,6 +223,16 @@ int main(int argc, char **argv)
     z.showMember(x);
     z.showAnotherMember(beta);
 
+
+
+
+
+
+
+    Sub b; // Base.
+    Base& a = b; 
+    a.doSth(); // Sub.
+    b.doMyThing(); // Sub.
     
 
     return 1;
