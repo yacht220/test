@@ -233,7 +233,18 @@ int main(int argc, char **argv)
     Base& a = b; 
     a.doSth(); // Sub.
     b.doMyThing(); // Sub.
-    
+   
+
+
+
+
+
+
+    char* string=(char*)malloc(2048);
+    printf("%p\n", string);
+    string = "hello";
+    printf("%p\n", string);
+    printf("%s\n", string);
 
     return 1;
 
